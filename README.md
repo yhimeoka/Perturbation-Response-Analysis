@@ -1,4 +1,4 @@
-Python codes to generate the model files (in matlab format because ode15s is fast) used in the manuscript.
+Python codes to generate the model files used in the manuscript.
 Y. Himeoka and C. Furusawa. 2023. “Perturbation-Response Analysis of in Silico Metabolic Dynamics: Hard-Coded Responsiveness in the Cofactor and Network Sparsity.”  *bioRxiv* . https://doi.org/10.1101/2023.10.18.562862.
 
 To load the Khodayari model, download the Supplementary file 4 (1-s2.0-S1096717614000731-mmc4.xlsx) from
