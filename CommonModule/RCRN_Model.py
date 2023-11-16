@@ -123,7 +123,7 @@ def ImportModelParameters(DataFilePath):
     
     Rates = []
     with open(DataFilePath, 'r') as fp:
-        l = fp.readline().replace('\n', '').split(', ')
+        l = fp.readline().replace('\n', '').split(',')
         for v in l:
             if abs(float(v)) > 1e-10:
                 Rates.append(np.log(float(v)))
@@ -349,6 +349,8 @@ def MainLoop(N, R, parallel, ParameterFilePath, start, end):
         
         GenerateRandomInitials(N, matlabdir)
 
+        # The following code is for running the model
+        '''
         RunMatlab(20*60, datadir, matlabdir, 32)
 
         Attractor,  Population,  MonoStable = ComputeAttractor(N, datadir)
@@ -364,7 +366,9 @@ def MainLoop(N, R, parallel, ParameterFilePath, start, end):
         
         GeneratePerturbedInitials(N, Attractor, matlabdir, Strength=0.4)
         
+        
         RunMatlab(40*60, datadir, matlabdir, 128)
+        '''
 
     with open(f'NetworkN{N}R{R}/Stability.txt', 'w') as fp:
         fp.write(StabilityResult)

@@ -40,7 +40,7 @@ def BuildModel(SourceDir='ModelData/',Var2Const=[],INIT_MAX=4096,Attractor=setti
     param['Km_NGAM'] = 1.0
     param['v_NGAM'] = 0.1
 
-    #パラメーター
+    
     output = ''
     for i in param.keys():
         output += i + '=' + str(param[i]) + ';\n'
@@ -64,18 +64,10 @@ def BuildModel(SourceDir='ModelData/',Var2Const=[],INIT_MAX=4096,Attractor=setti
             output += f'dx{i}_dt = @(t,x) ' + eq[n] + ';\n'
 
 
-    #Dynamicsをまず計算したあとのConc
+    #The attractor concentrations of the extended Chassagnole model
     yatt = [1.059937e-01,3.394233e+01,3.961649e-01,7.053498e-02,1.386998e-01,6.560053e-01,2.037646e-01,3.134937e-01,4.137934e+00,2.508028e-01,1.818086e+00,8.929278e-01,1.035190e-03,2.111069e-04,1.547474e-03,5.588319e-02,2.188191e+00,4.864751e+00,2.481806e-04,4.616661e-01]
     for i,m in enumerate(metabolites):
         conc[m] = yatt[i]
-
-    #yatt = [1 for i in range(len(metabolites))]
-    #for i,m in enumerate(metabolites):
-    #    yatt[i] = conc[m]
-
-    #Parameter output for the Furusawamodel
-    with open('../../FurusawaModel_DistributedParameter/Chassagnole_Model/ModelData/v_params.txt','w') as fp:
-        fp.write(','.join([f'{v_val}' for v_name,v_val in param.items() if v_name.startswith('v_') or v_name.startswith('rmax')]))  
 
     output += 'df_dt = @(t,x)[' + ';'.join([f'dx{i}_dt(t,x)' for i in range(1,len(metabolites)+1)]) + '];\n'
     with open('matlabscript/ODEs.m','w') as fp:
@@ -104,7 +96,6 @@ def BuildModel(SourceDir='ModelData/',Var2Const=[],INIT_MAX=4096,Attractor=setti
     #Main Script
     N = len(metabolites)
     output = 'clearvars\nparfor init=1:'+str(INIT_MAX)+'\ndisp(init)\nSingle(init);\nend\npoolobj = gcp(\'nocreate\');\ndelete(poolobj);\n\n'
-    #output = 'clearvars\nfor init=1:'+str(INIT_MAX)+'\ndisp(init)\nSingle(init);\nend\npoolobj = gcp(\'nocreate\');\ndelete(poolobj);\n\n'
     output += 'function Single(init)\n'
     output += 'xini = importdata(\'initials.txt\');\ndisp(init)\nparameters;ODEs;Attractor;\n'
     output += 'y0 = [' + ' '.join([f'xini(init,{n+1})' for n in range(N)])+'];\n'
