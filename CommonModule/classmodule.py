@@ -1,10 +1,12 @@
-import sympy, re, os, copy, random, joblib, itertools, pulp, copy
+import sympy, re, os, copy, random, joblib, itertools, copy
+# if gurobi is not installed, pulp can be used instead
+#import pulp 
+#from pulp import PULP_CBC_CMD
 import numpy as np
 import pandas as pd
 import networkx as nx
 from matplotlib import pyplot as plt 
 from scipy.linalg import null_space
-from pulp import PULP_CBC_CMD
 import gurobipy as gp
 from gurobipy import GRB
 

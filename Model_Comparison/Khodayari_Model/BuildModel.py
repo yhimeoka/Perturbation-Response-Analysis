@@ -64,20 +64,11 @@ def BuildModel(SourceDir='ModelData/1-s2.0-S1096717614000731-mmc4.xlsx',Var2Cons
     paramval = []
     for r in model.reactions.values():
         paramval.append(np.log10(r.v.val+1e-16))
-    #plt.hist(paramval, bins=64)
-    #plt.savefig("paramhist_all.png")
 
     RemoveInhibition = ['PPC_uncomp_inhibit']
 
-    #Complex Inhibitionがあると固有値正が2つ出てくるの外す. Complex以外のchemicalは定常状態で濃度が1になるようになっているので、定数にしたければモデルから外せばOK
-    #RemoveChemicals = ['co2_c','h_c','h2o_c','nh4_c','o2_c','pi_c','ppi_c'] + [m for m in model.MetNameList if m[-2:] == '_e' or model.metabolites[m].asc_rxn == []]# + [m.name 
-    RemoveChemicals = ['co2_c','h_c','h2o_c','nh4_c','o2_c','pi_c','ppi_c'] + [m for m in model.MetNameList if m[-2:] == '_e' or model.metabolites[m].asc_rxn == []]# + [m.name 
-    #5/31 h_cとh_eをこの状況から追加すると安定でなくなる
-    #RemoveChemicals.remove('h_e')
-    #RemoveChemicals.remove('h_c')
-    #RemoveChemicals += [m for m in model.MetNameList if '_inhibit' in m]
-    #RemoveChemicals = list(set(RemoveChemicals))
-
+    RemoveChemicals = ['co2_c','h_c','h2o_c','nh4_c','o2_c','pi_c','ppi_c'] + [m for m in model.MetNameList if m[-2:] == '_e' or model.metabolites[m].asc_rxn == []]
+    
     if 'nadh_c' in Var2Const or 'nad_c' in Var2Const:
         Var2Const = ['nadh_c','nad_c']
 
