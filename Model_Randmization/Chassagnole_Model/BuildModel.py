@@ -82,7 +82,7 @@ def MainLoop(seed,AddRxn,INIT_MAX):
 
     random.seed(seed)
     
-    ParameterFile, EquationFile = '../../Model_Comparison/Chassagnole_Model/Parameters.txt', '../../Model_Comparison/Chassagnole_Model/Equation.txt'
+    ParameterFile, EquationFile = '../../Model_Comparison/Chassagnole_Model/ModelData/Parameters.txt', '../../Model_Comparison/Chassagnole_Model/ModelData/Equation.txt'
     df = pd.read_table(ParameterFile)
 
     param, conc = {}, {}

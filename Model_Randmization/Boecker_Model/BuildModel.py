@@ -408,8 +408,8 @@ def BuildModel_AddReactions(seed,DataFile,OutPutDir ='',Nadd=0,INIT_MAX = 128,Va
 
 
 if __name__ == '__main__':
-    DataFile = '../../Model_Comparison/Boecker_Model/ModelData/Ralf_KineticModel_Version2.xlsx'
-    MainLoop(DataFile)
-
-
+    DataFile = '../../Model_Comparison/Boecker_Model/ModelData/Boecker_KineticModel_Version2.xlsx'
+    Nadd = 1
+    BuildModel_AddReactions(seed=0,DataFile=DataFile,Nadd=Nadd,INIT_MAX = 128)
+    
 
